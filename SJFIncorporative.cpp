@@ -36,7 +36,7 @@ void schedule(int noProcess){
         int minIndex = 0;
         for(int x = 0 ;x<m;x++){
                  if(ReadyQueue[x]->bT>0){
-                        cout<<"x: "<<x;
+                        //cout<<"x: "<<x;
                     minIndex = x;
                  //cout<<"P"<<ReadyQueue[x]->iD<<" ";
                  }
@@ -45,7 +45,7 @@ void schedule(int noProcess){
         }
         int min=ReadyQueue[minIndex]->bT;
         //cout<<"Now considered min is:"<<minIndex<<endl;
-        cout<<endl;
+        //cout<<endl;
         // finding the min job from the ready queue
 
         process *minProcess = *(&ReadyQueue[0]);
@@ -65,7 +65,7 @@ void schedule(int noProcess){
         minProcess->bT = 0;
 
         //cout<<"Min Pid"<<minPid<<endl;
-        cout<<endl;
+        //cout<<endl;
 
     }
 
@@ -95,28 +95,29 @@ int main(){
 
     }
     schedule(noProcess);
-    cout<<"ID \t\tBT \t\tAT\t\t CT\n";
+    cout<<"ProcessID \t\tBurstTime \t\tArrivalTime\t\t CompletionTime(endingTime)\n";
 
     for(int i=0;i<noProcess;++i){
-        cout<<pArray[i].iD<<"\t\t"<<pArray[i].bbT<<" \t\t"<<pArray[i].aT<<" \t\t"<<pArray[i].cT<<endl;
+        cout<<pArray[i].iD<<"\t\t\t"<<pArray[i].bbT<<" \t\t\t"<<pArray[i].aT<<" \t\t\t"<<pArray[i].cT<<endl;
 
 
     }
 
 
-
-
-
-
-
 }
 /*
-
+// for same arrival time
 1 10
 2 29
 3 3
 4 7
 5 12
 
+//for different Arrival Time
+1 10 0
+2 29 1
+3 3 1
+4 7 2
+5 12 2
 
 */
