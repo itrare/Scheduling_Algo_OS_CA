@@ -5,13 +5,7 @@
 using namespace std;
 int noProcess,aTs;
 struct process{
-    int iD;
-    int bT;
-    int bbT;
-    int aT;
-    int cT;
-    int tAT;
-    int wT;
+    int iD,bT,bbT,aT,cT,tAT,wT;
 
 };
 process * pArray= new process[MAX];
@@ -95,14 +89,14 @@ int main(){
 
     }
     schedule(noProcess);
-    cout<<"ProcessID \t\tBurstTime \t\tArrivalTime\t\t CompletionTime(endingTime)\n";
+    cout<<"ProcessID \t\tBurstTime \t\tArrivalTime\t\tCompletionTime(endingTime)\n";
 
     for(int i=0;i<noProcess;++i){
         cout<<pArray[i].iD<<"\t\t\t"<<pArray[i].bbT<<" \t\t\t"<<pArray[i].aT<<" \t\t\t"<<pArray[i].cT<<endl;
 
 
     }
-
+    cout<<"The Ending time of Pi(i=4) : "<<pArray[3].cT;
 
 }
 /*
