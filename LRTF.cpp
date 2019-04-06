@@ -1,7 +1,18 @@
 // LRTF.cpp
 #include<iostream>
 #include<stdlib.h>
+#include<conio.h>
+#include <windows.h>
 #define MAX 100
+COORD coord = {0, 0};
+COORD max_res,cursor_size;
+void gotoxy (int x, int y)
+{
+        coord.X = x; coord.Y = y; // X and Y coordinates
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+
 using namespace std;
 int cc;
 struct process{
@@ -19,20 +30,51 @@ algorithm and calculate the average turnaround time and waiting time.
 
 
 */
-int isNullQueue(process *Array[]){
+int sizeBTQueue(process *Array[]){
 
-    cout<<"Hwer";
     int isThere=0;
-    cout<<(Array[2]->bt)<<endl;
-
     for(int i=0;i<cc;i++){
-            cout<<"Ready Queue bt"<<i<<" ;"<<(Array[i]->bt)<<endl;
+        if(Array[i]->bt>0){
+            isThere+=1;
+        }
+    }
+
+    return isThere;
+}
+int isNullQueue(process *Array[]){
+    int isThere=0;
+    for(int i=0;i<cc;i++){
         if(Array[i]->bt>0){
             isThere=1;
         }
     }
-    cout<<isThere<<endl;
+
     return isThere;
+}
+
+void madeGanttChar(int id[],int ct[],int z){
+
+
+int i=0;
+ct[0]=0;
+int x=1;
+for( x =1;x<=z;x++){
+
+    gotoxy(x*7,1);
+    cout<<" ______";
+        gotoxy(x*7,1);
+    cout<<""<<ct[x-1]<<endl;
+gotoxy(x*7,2);
+    i=x-1;
+    cout<<"| P"<<id[i]<<"|"<<endl;
+    gotoxy(x*7,3);
+    cout<<"|______|"<<endl;
+
+}
+gotoxy(x*7,1);
+cout<<""<<ct[x-1]<<endl;
+gotoxy(0,5);
+
 }
 process &priorityScheduling(process *longAssump, process *CompV){
 
@@ -48,7 +90,7 @@ process &priorityScheduling(process *longAssump, process *CompV){
 void lRTFScheduling(){
     process *ReadyQueue[cc];
     int m=0,i=0,ctGlobal=0;
-
+    int id[MAX],ct[MAX];
     do{
 
         if(m<cc){
@@ -76,7 +118,10 @@ void lRTFScheduling(){
         cout<<"Long ID:"<<longRProc->PID<<"Long Prcs bt:- and ct:-"<<longRProc->bt<<" " <<longRProc->ct<<endl;
 
 
-
+    system("cls");
+    id[i]=longRProc->PID;
+    ct[1+i]=longRProc->ct;
+    madeGanttChar(id,ct,i+1);
         i++;
     }while(isNullQueue(ReadyQueue)==1);
 }
@@ -109,14 +154,18 @@ int main(){
     getStudents();
     lRTFScheduling();
     display();
+
 }
 
 /*
-3
+
 2132 0 2
 2102 0 4
 2453 0 8
 
+2132 0 2
+2102 2 4
+2453 4 8
 
 */
 
