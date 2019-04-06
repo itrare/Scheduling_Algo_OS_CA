@@ -42,8 +42,10 @@ int sizeBTQueue(process *Array[]){
     return isThere;
 }
 int isNullQueue(process *Array[]){
+
     int isThere=0;
     for(int i=0;i<cc;i++){
+
         if(Array[i]->bt>0){
             isThere=1;
         }
@@ -51,7 +53,18 @@ int isNullQueue(process *Array[]){
 
     return isThere;
 }
+int allDone(){
+        int isThere=0;
+    for(int i=0;i<cc;i++){
 
+        if(ProcessQueue[i].bt>0){
+            isThere=1;
+        }
+    }
+
+    return isThere;
+
+}
 void madeGanttChar(int id[],int ct[],int z){
 
 
@@ -88,7 +101,7 @@ process &priorityScheduling(process *longAssump, process *CompV){
 
 }
 void lRTFScheduling(){
-    process *ReadyQueue[cc];
+    process *ReadyQueue[MAX];
     int m=0,i=0,ctGlobal=0;
     int id[MAX],ct[MAX];
     do{
@@ -103,7 +116,7 @@ void lRTFScheduling(){
         process *longRProc = *(&ReadyQueue[0]);
 
         for(int k= 0 ;k<m;k++){
-            if(longRProc->bt < ReadyQueue[k]->bt && ReadyQueue[k]->bt>0 ){
+            if(longRProc->bt < ReadyQueue[k]->bt && ReadyQueue[k]->bt>0){
                 longRProc = *(&ReadyQueue[k]);
             }else if(longRProc->bt == ReadyQueue[k]->bt && ReadyQueue[k]->bt>0 ){
                 longRProc = (&priorityScheduling(longRProc,ReadyQueue[k]));
@@ -123,7 +136,7 @@ void lRTFScheduling(){
     ct[1+i]=longRProc->ct;
     madeGanttChar(id,ct,i+1);
         i++;
-    }while(isNullQueue(ReadyQueue)==1);
+    }while(isNullQueue(ReadyQueue)==1 || allDone()==1 );
 }
 
 void getStudents(){
