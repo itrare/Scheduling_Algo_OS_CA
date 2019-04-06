@@ -1,5 +1,5 @@
 # Scheduling Algorithms
-This repository contains SJF non-preemptive scheduling algorithm and Longest Time Remaining First Alogorithm.
+This repository contains SJF preemptive scheduling algorithm and Longest Time Remaining First Alogorithm.
 
 # Longest Remaining Time First
 Example :- 
