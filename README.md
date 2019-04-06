@@ -18,7 +18,7 @@ Example :-
       Average WT  9
 
 
-# Sortest Job First
+# Shortest Job First
 
     0___1___2___3___4___5___6___7___8___9___10__11__12__13__14__15__16
     |P1 |P1 |P2 |P2 |P3 |P2 |P2 |P4 |P4 |P4 |P4 |P1 |P1 |P1 |P1 |P1 |
