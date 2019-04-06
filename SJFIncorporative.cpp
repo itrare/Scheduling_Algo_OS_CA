@@ -1,48 +1,112 @@
+
 #include<iostream>
-#include<string>
-#define MAX 100000
+#include<stdlib.h>
+#include<conio.h>
+#include <windows.h>
+#define MAX 100
+COORD coord = {0, 0};
+COORD max_res,cursor_size;
+void gotoxy (int x, int y)
+{
+        coord.X = x; coord.Y = y; // X and Y coordinates
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
 
 using namespace std;
-int noProcess,aTs;
+int noProcess,aTs,ttB=0;
 struct process{
     int iD,bT,bbT,aT,cT,tAT,wT;
 
 };
 process * pArray= new process[MAX];
+int isNullQueue(process *Array[]){
 
 
-void schedule(int noProcess){
-    process *ReadyQueue[noProcess];
-    int length = noProcess;
-    int m=0;
-    int cTValue = 0;
-    for(int i=0;i<length;i++){
+    int isThere=0;
+    for(int i=0;i<noProcess;i++){
+          //  cout<<"Ready Queue ID :"<<(Array[i]->iD)<<" BT"<<(Array[i]->bT)<<endl;
+        if(Array[i]->bT>0){
+            isThere=1;
 
-        if(m<length){
-        for(int j=0; j<length;j++){
-            if(pArray[j].aT==i){
-                ReadyQueue[m++] = &pArray[j];
             }
 
         }
 
+
+    return isThere;
+}
+int allDone(){
+        int isThere=0;
+    for(int i=0;i<noProcess;i++){
+
+        if( pArray[i].bT>0){
+            isThere=1;
+        }
+    }
+
+    return isThere;
+
+}
+void madeGanttChar(int id[],int ct[],int z){
+
+
+int i=0;
+ct[0]=0;
+int x=1;
+int down=3;
+for( x =1;x<=z;x++){
+if(x*3 >90){
+    gotoxy(x*3,down++);
+}
+    {
+        gotoxy(x*3,1);
+    cout<<" __";
+    gotoxy(x*3,1);
+    cout<<""<<ct[x-1]<<endl;
+    gotoxy(x*3,2);
+    i=x-1;
+    cout<<"|P"<<id[i]<<"|"<<endl;
+    gotoxy(x*3,3);
+    cout<<"|__|"<<endl;
+    }
+
+}
+
+gotoxy(x*3,1);
+cout<<""<<ct[x-1]<<endl;
+
+
+}
+void schedule(int noProcess){
+    process *ReadyQueue[MAX];
+    int length = noProcess;
+    int m=0,i=0;
+    int id[MAX],ct[MAX];
+    int cTValue = 0;
+
+    do{
+        cout<<"Executed "<<i+1<<endl;
+
+        if(m<MAX){
+            for(int j= 0 ;j<noProcess;j++){
+            if(pArray[j].aT==i &&pArray[j].bT>0){
+                ReadyQueue[m++] = &pArray[j];
+            }
+        }
         }
         int minIndex = 0;
         for(int x = 0 ;x<m;x++){
                  if(ReadyQueue[x]->bT>0){
-                        //cout<<"x: "<<x;
+
                     minIndex = x;
-                 //cout<<"P"<<ReadyQueue[x]->iD<<" ";
+
                  }
 
 
         }
-        int min=ReadyQueue[minIndex]->bT;
-        //cout<<"Now considered min is:"<<minIndex<<endl;
-        //cout<<endl;
-        // finding the min job from the ready queue
+       int min=ReadyQueue[minIndex]->bT;
 
-        process *minProcess = *(&ReadyQueue[0]);
+        process *minProcess = *(&ReadyQueue[minIndex]);
         int minPid;
         for(int k=0 ; k<m;k++){
             if(ReadyQueue[k]->bT <= min && ReadyQueue[k]->bT>0){
@@ -50,22 +114,24 @@ void schedule(int noProcess){
                 minPid = ReadyQueue[k]->iD;
                 min = minProcess->bT;
             }
-            //cout<<"Min Pid will be"<<minProcess->iD<<endl<<endl;
+
 
         }
+        cout<<minProcess->iD<<endl;
 
-        cTValue+=minProcess->bT;
+        cTValue++;
         minProcess->cT = cTValue;
-        minProcess->bT = 0;
+        minProcess->bT -=1;
+        system("cls");
+    id[i]= minProcess->iD;
+    ct[1+i]= minProcess->cT;
+    madeGanttChar(id,ct,i+1);
+        i++;
 
-        //cout<<"Min Pid"<<minPid<<endl;
-        //cout<<endl;
-
-    }
+        }while(i<ttB );
 
 }
 int main(){
-
 
     cout<<"How many Process are there: \n";
     cin>>noProcess;
@@ -78,6 +144,7 @@ int main(){
         int bt;
         cin>>bt;
         n->bT = bt;
+        ttB+=bt;
         n->bbT = bt;
         if(aTs==1){
             n->aT=0;
@@ -89,6 +156,7 @@ int main(){
 
     }
     schedule(noProcess);
+    gotoxy(0,8);
     cout<<"ProcessID \t\tBurstTime \t\tArrivalTime\t\tCompletionTime(endingTime)\n";
 
     for(int i=0;i<noProcess;++i){
@@ -114,4 +182,11 @@ int main(){
 4 7 2
 5 12 2
 
+// sdfsdf sfs
+
+
+1 7 0
+2 4 2
+3 1 4
+4 4 5
 */
