@@ -24,7 +24,7 @@ int isNullQueue(process *Array[]){
 
     int isThere=0;
     for(int i=0;i<noProcess;i++){
-          //  cout<<"Ready Queue ID :"<<(Array[i]->iD)<<" BT"<<(Array[i]->bT)<<endl;
+
         if(Array[i]->bT>0){
             isThere=1;
 
@@ -56,23 +56,23 @@ int x=1;
 int down=3;
 for( x =1;x<=z;x++){
 if(x*3 >90){
-    gotoxy(x*3,down++);
+    gotoxy(x*4,down++);
 }
     {
-        gotoxy(x*3,1);
-    cout<<" __";
-    gotoxy(x*3,1);
+        gotoxy(x*4,1);
+    cout<<" ___";
+    gotoxy(x*4,1);
     cout<<""<<ct[x-1]<<endl;
-    gotoxy(x*3,2);
+    gotoxy(x*4,2);
     i=x-1;
-    cout<<"|P"<<id[i]<<"|"<<endl;
-    gotoxy(x*3,3);
-    cout<<"|__|"<<endl;
+    cout<<"|P"<<id[i]<<" |"<<endl;
+    gotoxy(x*4,3);
+    cout<<"|___|"<<endl;
     }
 
 }
 
-gotoxy(x*3,1);
+gotoxy(x*4,1);
 cout<<""<<ct[x-1]<<endl;
 
 
@@ -122,6 +122,8 @@ void schedule(int noProcess){
         cTValue++;
         minProcess->cT = cTValue;
         minProcess->bT -=1;
+        minProcess->tAT = minProcess->cT - minProcess->aT;
+        minProcess->wT = minProcess->tAT - minProcess->bbT;
         system("cls");
     id[i]= minProcess->iD;
     ct[1+i]= minProcess->cT;
@@ -136,33 +138,27 @@ int main(){
     cout<<"How many Process are there: \n";
     cin>>noProcess;
     process *n;
-    cout<<"Is arrival time same for all process [yes=1/no=0]= ";
-    cin>>aTs;
+    cout<<"ProcessID \t\tArrivalTime \t\tBurstTime\t\t\n";
     for(int i=0;i<noProcess;++i){
         n = new process;
         cin>>n->iD;
         int bt;
+        cin>>n->aT;
         cin>>bt;
         n->bT = bt;
         ttB+=bt;
         n->bbT = bt;
-        if(aTs==1){
-            n->aT=0;
-        }else{
-            cin>>n->aT;
-        }
+
         pArray[i]= (*n);
 
 
     }
     schedule(noProcess);
     gotoxy(0,8);
-    cout<<"ProcessID \t\tBurstTime \t\tArrivalTime\t\tCompletionTime(endingTime)\n";
+    cout<<"PID \t\tBT \t\tAT\t\tCT\t\tTAT \t\tWT\n";
 
     for(int i=0;i<noProcess;++i){
-        cout<<pArray[i].iD<<"\t\t\t"<<pArray[i].bbT<<" \t\t\t"<<pArray[i].aT<<" \t\t\t"<<pArray[i].cT<<endl;
-
-
+        cout<<pArray[i].iD<<"\t\t"<<pArray[i].bbT<<" \t\t"<<pArray[i].aT<<" \t\t"<<pArray[i].cT<<" \t\t"<<pArray[i].tAT<<" \t\t"<<pArray[i].wT<<endl;
     }
     cout<<"The Ending time of Pi(i=4) : "<<pArray[3].cT;
 
@@ -185,8 +181,8 @@ int main(){
 // sdfsdf sfs
 
 
-1 7 0
-2 4 2
-3 1 4
-4 4 5
+1 0 7
+2 2 4
+3 4 1
+4 5 4
 */
