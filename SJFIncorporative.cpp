@@ -19,61 +19,44 @@ struct process{
 
 };
 process * pArray= new process[MAX];
-int isNullQueue(process *Array[]){
 
 
-    int isThere=0;
-    for(int i=0;i<noProcess;i++){
-
-        if(Array[i]->bT>0){
-            isThere=1;
-
-            }
-
-        }
-
-
-    return isThere;
-}
-int allDone(){
-        int isThere=0;
-    for(int i=0;i<noProcess;i++){
-
-        if( pArray[i].bT>0){
-            isThere=1;
-        }
-    }
-
-    return isThere;
-
-}
+int x=1,m=1,d;
 void madeGanttChar(int id[],int ct[],int z){
 
 
-int i=0;
+int i=0,L=1;
+d=0;
 ct[0]=0;
-int x=1;
-int down=3;
-for( x =1;x<=z;x++){
-if(x*3 >90){
-    gotoxy(x*4,down++);
+
+for( m =1,x=1;m<=z;m++,x++){
+
+if(m%15==0){
+
+    d+=5;
+    x=1;
+
+    gotoxy(x*7,d+2);
 }
-    {
-        gotoxy(x*4,1);
-    cout<<" ___";
-    gotoxy(x*4,1);
-    cout<<""<<ct[x-1]<<endl;
-    gotoxy(x*4,2);
-    i=x-1;
-    cout<<"|P"<<id[i]<<" |"<<endl;
-    gotoxy(x*4,3);
-    cout<<"|___|"<<endl;
-    }
+
+
+    gotoxy(x*7,1+d);
+    cout<<" ______";
+    gotoxy(x*7,1+d);
+    cout<<""<<ct[m-1]<<endl;
+    gotoxy(x*7,2+d);
+    i=m-1;
+    cout<<"|  P"<<id[i];
+    gotoxy(x*7+7,2+d);
+    cout<<"|"<<endl;
+    gotoxy(x*7,3+d);
+    cout<<"|______|"<<endl;
+
 
 }
 
-gotoxy(x*4,1);
-cout<<""<<ct[x-1]<<endl;
+gotoxy(x*7,1+d);
+cout<<""<<ct[m-1]<<endl;
 
 
 }
@@ -127,7 +110,9 @@ void schedule(int noProcess){
         system("cls");
     id[i]= minProcess->iD;
     ct[1+i]= minProcess->cT;
+
     madeGanttChar(id,ct,i+1);
+    gotoxy(0,2);
         i++;
 
         }while(i<ttB );
@@ -153,11 +138,14 @@ int main(){
 
 
     }
+    cin.ignore();
     schedule(noProcess);
-    gotoxy(0,8);
+
+    gotoxy(8,8+d-1);
     cout<<"PID \t\tBT \t\tAT\t\tCT\t\tTAT \t\tWT\n";
 
     for(int i=0;i<noProcess;++i){
+        gotoxy(8,8+d+i);
         cout<<pArray[i].iD<<"\t\t"<<pArray[i].bbT<<" \t\t"<<pArray[i].aT<<" \t\t"<<pArray[i].cT<<" \t\t"<<pArray[i].tAT<<" \t\t"<<pArray[i].wT<<endl;
     }
     cout<<"The Ending time of Pi(i=4) : "<<pArray[3].cT;
@@ -165,18 +153,18 @@ int main(){
 }
 /*
 // for same arrival time
-1 10
-2 29
-3 3
-4 7
-5 12
+1 0 10
+2 0 29
+3 0 3
+4 0 7
+5 0 12
 
 //for different Arrival Time
-1 10 0
-2 29 1
-3 3 1
-4 7 2
-5 12 2
+1 0 10
+2 1 29
+3 1 3
+4 2 7
+5 2 12
 
 // sdfsdf sfs
 
