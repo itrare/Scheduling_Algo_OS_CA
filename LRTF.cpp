@@ -3,35 +3,29 @@
 #include<stdlib.h>
 #include<conio.h>
 #include <windows.h>
-#define MAX 100
+#define MAX 500
 COORD coord = {0, 0};
 COORD max_res,cursor_size;
 void gotoxy (int x, int y)
 {
-        coord.X = x; coord.Y = y; // X and Y coordinates
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+     coord.X = x; coord.Y = y; // X and Y coordinates
+     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
-
 
 using namespace std;
 int cc;
 struct process{
  int PID,at,bt,btt,wt,ct,tat,PR;
 };
-
 process *ProcessQueue = new process[MAX];
 /*
-
 Three students (a, b, c) are arriving in the mess at the same time. The id numbers of
 these students are 2132, 2102, 2453 and the food taken time from the mess table is 2, 4 and 8
 minutes. If the two students have same remaining time so it is broken by giving priority to the
 students with the lowest id number. Consider the longest remaining time first (LRTF) scheduling
 algorithm and calculate the average turnaround time and waiting time.
-
-
 */
 int sizeBTQueue(process *Array[]){
-
     int isThere=0;
     for(int i=0;i<cc;i++){
         if(Array[i]->bt>0){
@@ -42,7 +36,6 @@ int sizeBTQueue(process *Array[]){
     return isThere;
 }
 int isNullQueue(process *Array[]){
-
     int isThere=0;
     for(int i=0;i<cc;i++){
 
@@ -50,7 +43,6 @@ int isNullQueue(process *Array[]){
             isThere=1;
         }
     }
-
     return isThere;
 }
 int allDone(){
@@ -61,32 +53,35 @@ int allDone(){
             isThere=1;
         }
     }
-
     return isThere;
-
 }
+int x=1,m=1,d;
 void madeGanttChar(int id[],int ct[],int z){
-
-
 int i=0;
+d=0;
 ct[0]=0;
-int x=1;
-for( x =1;x<=z;x++){
+for( m =1,x=1;m<=z;m++,x++){
+if(m%15==0){
+    d+=5;
+    x=1;
 
-    gotoxy(x*7,1);
-    cout<<" ______";
-        gotoxy(x*7,1);
-    cout<<""<<ct[x-1]<<endl;
-gotoxy(x*7,2);
-    i=x-1;
-    cout<<"| P"<<id[i]<<"|"<<endl;
-    gotoxy(x*7,3);
-    cout<<"|______|"<<endl;
-
+    gotoxy(x*7,d+2);
 }
-gotoxy(x*7,1);
-cout<<""<<ct[x-1]<<endl;
-gotoxy(0,5);
+    gotoxy(x*7,1+d);
+    cout<<" ______";
+    gotoxy(x*7,1+d);
+    cout<<""<<ct[m-1]<<endl;
+    gotoxy(x*7,2+d);
+    i=m-1;
+    cout<<"|P"<<id[i];
+    gotoxy(x*7+7,2+d);
+    cout<<"|"<<endl;
+    gotoxy(x*7,3+d);
+    cout<<"|______|"<<endl;
+}
+
+gotoxy(x*7,1+d);
+cout<<""<<ct[m-1]<<endl;
 
 }
 process &priorityScheduling(process *longAssump, process *CompV){
@@ -166,10 +161,10 @@ void display(){
 int main(){
     getStudents();
     lRTFScheduling();
+    gotoxy(0,8+d);
     display();
 
 }
-
 /*
 
 2132 0 2
@@ -180,5 +175,8 @@ int main(){
 2102 2 4
 2453 4 8
 
-*/
+1 4 32
+2 5 57
+3 5 47
 
+*/
