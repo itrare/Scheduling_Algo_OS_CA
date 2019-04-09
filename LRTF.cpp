@@ -144,6 +144,8 @@ void lRTFScheduling(){
         longRProc->tat = longRProc->ct - longRProc->at;
         longRProc->wt = longRProc->tat - longRProc->btt;
 
+        cout<<"Long ID:"<<longRProc->PID<<"Long Prcs bt:- and ct:-"<<longRProc->bt<<" " <<longRProc->ct<<endl;
+
 
     system("cls");
     id[i]=longRProc->PID;
@@ -151,6 +153,7 @@ void lRTFScheduling(){
     madeGanttChar(id,ct,i+1);
         i++;
     }while(isNullQueue(ReadyQueue)==1 || allDone()==1 );
+    delete []ReadyQueue;
 }
 
 void getStudents(){
