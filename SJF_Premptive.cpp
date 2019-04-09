@@ -3,12 +3,12 @@
 #include<stdlib.h>
 #include<conio.h>
 #include <windows.h>
-#define MAX 100
+#define MAX 1000
 COORD coord = {0, 0};
 COORD max_res,cursor_size;
 void gotoxy (int x, int y)
 {
-        coord.X = x; coord.Y = y; // X and Y coordinates
+        coord.X = x; coord.Y = y;
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
@@ -152,25 +152,27 @@ int main(){
 
 }
 /*
-// for same arrival time
+Test Case #Original:
+5
 1 0 10
 2 0 29
 3 0 3
 4 0 7
 5 0 12
 
-//for different Arrival Time
+Test Case #1:
+5
 1 0 10
 2 1 29
 3 1 3
 4 2 7
 5 2 12
 
-// sdfsdf sfs
-
-
+Test Case #2:
+4
 1 0 7
 2 2 4
 3 4 1
 4 5 4
+
 */
