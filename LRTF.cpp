@@ -1,13 +1,10 @@
 // LRTF.cpp
 /*
-
 Three students (a, b, c) are arriving in the mess at the same time. The id numbers of
 these students are 2132, 2102, 2453 and the food taken time from the mess table is 2, 4 and 8
 minutes. If the two students have same remaining time so it is broken by giving priority to the
 students with the lowest id number. Consider the longest remaining time first (LRTF) scheduling
 algorithm and calculate the average turnaround time and waiting time.
-
-
 */
 #include<iostream>
 #include<stdlib.h>
@@ -59,7 +56,7 @@ int allDone(){
     for(int i=0;i<cc;i++){
 
         if(ProcessQueue[i].bt>0){
-            isThere=1;
+            isThere+=ProcessQueue[i].bt;
         }
     }
 
@@ -137,6 +134,9 @@ void lRTFScheduling(){
             }else if(longRProc->bt == ReadyQueue[k]->bt && ReadyQueue[k]->bt>0 ){
                 longRProc = (&priorityScheduling(longRProc,ReadyQueue[k]));
             }
+            if(ReadyQueue[k]->bt<0){
+                delete ReadyQueue[k];
+            }
         }
         ctGlobal++;
         longRProc->bt-=1;
@@ -152,8 +152,8 @@ void lRTFScheduling(){
     ct[1+i]=longRProc->ct;
     madeGanttChar(id,ct,i+1);
         i++;
-    }while(isNullQueue(ReadyQueue)==1 || allDone()==1 );
-    delete []ReadyQueue;
+    }while( i<allDone()||isNullQueue(ReadyQueue)==1 );
+
 }
 
 void getStudents(){
@@ -169,15 +169,15 @@ void getStudents(){
     }
 }
 void display(){
-    cout<<"PROCESS ID\t ARRIVAL TIME\t BURST TIME\t COMPLETION TIME  TAT\t\t WT"<<endl;
+    cout<<"\tPROCESS ID\t ARRIVAL TIME\t BURST TIME\t COMPLETION TIME  TAT\t\t WT"<<endl;
     float avgWt=0,avgTAT=0;
     for(int i =0 ;i<cc;i++){
-        cout<<ProcessQueue[i].PID<<"\t\t "<<ProcessQueue[i].at<<"\t\t "<<ProcessQueue[i].btt<<"\t\t "<<ProcessQueue[i].ct<<"\t\t  "<<ProcessQueue[i].tat<<"\t\t "<<ProcessQueue[i].wt<<endl;
+        cout<<"\t"<<ProcessQueue[i].PID<<"\t\t "<<ProcessQueue[i].at<<"\t\t "<<ProcessQueue[i].btt<<"\t\t "<<ProcessQueue[i].ct<<"\t\t  "<<ProcessQueue[i].tat<<"\t\t "<<ProcessQueue[i].wt<<endl;
         avgTAT+=ProcessQueue[i].tat;
         avgWt+=ProcessQueue[i].wt;
     }
-    cout<<"Average TAT "<<(float)avgTAT/cc<<endl;
-    cout<<"Average WT  "<<(float)avgWt/cc<<endl;
+    cout<<"\tAverage TAT "<<(float)avgTAT/cc<<endl;
+    cout<<"\tAverage WT  "<<(float)avgWt/cc<<endl;
 
 }
 int main(){
@@ -207,5 +207,18 @@ Test Case #2:
 2 5 57
 3 5 47
 
-*/
+Test Case #3:
+4
+1 1 2
+2 2 4
+3 3 6
+4 4 8
 
+Test Case #4:
+5
+1 0 2
+2 0 3
+3 2 2
+4 3 5
+5 4 4
+*/
