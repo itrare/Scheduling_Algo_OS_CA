@@ -31,7 +31,7 @@ ct[0]=0;
 
 for( m =1,x=1;m<=z;m++,x++){
 
-if(m%15==0){
+if(m%20==0){
 
     d+=5;
     x=1;
@@ -141,14 +141,25 @@ int main(){
     cin.ignore();
     schedule(noProcess);
 
+    gotoxy(0,8+d-2);
+    cout<<"\t+_______________________________________________________________________________________________+";
     gotoxy(8,8+d-1);
-    cout<<"PID \t\tBT \t\tAT\t\tCT\t\tTAT \t\tWT\n";
-
+    cout<<"|ProcessID \t|BurstTime \t|ArrivalTime\t|CompletionTime\t|TurnAroundTime\t|WaitingTime\t|\n";
+    cout<<"\t+_______________________________________________________________________________________________+";
     for(int i=0;i<noProcess;++i){
-        gotoxy(8,8+d+i);
-        cout<<pArray[i].iD<<"\t\t"<<pArray[i].bbT<<" \t\t"<<pArray[i].aT<<" \t\t"<<pArray[i].cT<<" \t\t"<<pArray[i].tAT<<" \t\t"<<pArray[i].wT<<endl;
+        gotoxy(8,9+d+i);
+        cout<<"|    "<<pArray[i].iD<<"\t\t|    "<<pArray[i].bbT<<"\t\t|    "<<pArray[i].aT<<"\t\t|    "<<pArray[i].cT<<"\t\t|    "<<pArray[i].tAT<<"\t\t|    "<<pArray[i].wT<<"\t\t|"<<endl;
+
     }
-    cout<<"The Ending time of Pi(i=4) : "<<pArray[3].cT;
+    cout<<"\t+_______________________________________________________________________________________________+\n";
+
+    {
+
+    cout<<"\t\t\t\t+_____________________________________________+\n";
+    cout<<"\t\t\t\t|     The Ending time of Pi(i=4) :  "<<pArray[3].cT<<" \t      |"<<endl;
+    cout<<"\t\t\t\t+_____________________________________________+\n";
+    }
+
 
 }
 /*
@@ -159,7 +170,6 @@ Test Case #Original:
 3 0 3
 4 0 7
 5 0 12
-
 Test Case #1:
 5
 1 0 10
@@ -167,7 +177,6 @@ Test Case #1:
 3 1 3
 4 2 7
 5 2 12
-
 Test Case #2:
 4
 1 0 7
