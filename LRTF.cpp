@@ -10,6 +10,7 @@ algorithm and calculate the average turnaround time and waiting time.
 #include<stdlib.h>
 #include<conio.h>
 #include <windows.h>
+#include <iomanip>      // std::setprecision
 #define MAX 500
 COORD coord = {0, 0};
 COORD max_res,cursor_size;
@@ -169,15 +170,20 @@ void getStudents(){
     }
 }
 void display(){
-    cout<<"\tPROCESS ID\t ARRIVAL TIME\t BURST TIME\t COMPLETION TIME  TAT\t\t WT"<<endl;
+    cout<<"\t+_______________________________________________________________________________________________+\n";
+    cout<<"\t|ProcessID \t|ArrivalTime \t|BurstTime\t|CompletionTime\t|TurnAroundTime\t|WaitingTime\t|\n";
+    cout<<"\t+_______________________________________________________________________________________________+\n";
     float avgWt=0,avgTAT=0;
     for(int i =0 ;i<cc;i++){
-        cout<<"\t"<<ProcessQueue[i].PID<<"\t\t "<<ProcessQueue[i].at<<"\t\t "<<ProcessQueue[i].btt<<"\t\t "<<ProcessQueue[i].ct<<"\t\t  "<<ProcessQueue[i].tat<<"\t\t "<<ProcessQueue[i].wt<<endl;
+        cout<<"\t|  "<<ProcessQueue[i].PID<<"\t\t| "<<ProcessQueue[i].at<<"\t\t| "<<ProcessQueue[i].btt<<"\t\t| "<<ProcessQueue[i].ct<<"\t\t|  "<<ProcessQueue[i].tat<<"\t\t| "<<ProcessQueue[i].wt<<"\t\t|"<<endl;
         avgTAT+=ProcessQueue[i].tat;
         avgWt+=ProcessQueue[i].wt;
     }
-    cout<<"\tAverage TAT "<<(float)avgTAT/cc<<endl;
-    cout<<"\tAverage WT  "<<(float)avgWt/cc<<endl;
+    cout<<"\t+_______________________________________________________________________________________________+\n\n";
+    cout<<"\t\t\t\t+_____________________________________________+\n";
+    cout<<"\t\t\t\t|\t\t Average TAT "<<fixed<<std::setprecision(1)<<(double)avgTAT/cc<<"\t      |"<<endl;
+    cout<<"\t\t\t\t|\t\t Average WT  "<<fixed<<setprecision(1)<<(float)avgWt/cc<<"\t      |"<<endl;
+    cout<<"\t\t\t\t+_____________________________________________+\n";
 
 }
 int main(){
@@ -194,26 +200,22 @@ Test Case #Original:
 2132 0 2
 2102 0 4
 2453 0 8
-
 Test Case #1:
 3
 2132 0 2
 2102 2 4
 2453 4 8
-
 Test Case #2:
 3
 1 4 32
 2 5 57
 3 5 47
-
 Test Case #3:
 4
 1 1 2
 2 2 4
 3 3 6
 4 4 8
-
 Test Case #4:
 5
 1 0 2
@@ -221,4 +223,5 @@ Test Case #4:
 3 2 2
 4 3 5
 5 4 4
+
 */
